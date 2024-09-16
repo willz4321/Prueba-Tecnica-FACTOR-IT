@@ -35,3 +35,31 @@ Se desarrolló con **Spring Boot 3** usando la versión 21 de **Java**, con base
 - **SchedulingConfig:** En la carpeta **config** se implementó la clase **SchedulingConfig** para tareas programadas, en este caso para verificar si un cliente sigue siendo VIP o no y actualizar dichos datos.
 
 - **UnitTest:** Se implementan diferentes clases en la carpeta **test** para realizar las pruebas unitarias con **JUnit** y **Mockito**.
+
+
+- **SCRIP PARA BASE DE DATOS**
+
+**Productos**: 
+-- Inserción de datos en la tabla productos
+INSERT INTO public.productos(
+    id, descripcion, imagen, nombre, precio, talle, tipo, talles, fecha_comun, fecha_vip
+) VALUES
+    (DEFAULT, 'Abrigo 1', 'https://res.cloudinary.com/drd90e66k/image/upload/v1726451028/carrito/oyyvslpdr6jbwmkamw5x.jpg', 'Buzo Negro', 1500.00, 2, 'N/A', '{10,11,12}', NULL, NULL),
+    (DEFAULT, 'Abrigo 2', 'https://res.cloudinary.com/drd90e66k/image/upload/v1726451029/carrito/glqjo3fffa1ey9s9cglc.jpg', 'Campera Beige', 1600.00, 2, 'N/A', '{10,11,12}', NULL, NULL),
+    (DEFAULT, 'Abrigo 3', 'https://res.cloudinary.com/drd90e66k/image/upload/v1726451030/carrito/wg5h5sdyym5zuxgmwpzg.png', 'Buzo de algodon', 1700.00, 2, 'N/A', '{10,11,12}', NULL, NULL),
+    (DEFAULT, 'Camisa 1', 'https://res.cloudinary.com/drd90e66k/image/upload/v1726451060/carrito/xjqhbipewkvmxvn9ieab.jpg', 'Camisa de algodón', 300.00, 1, 'N/A', '{0,1,2,3,4}', NULL, NULL),
+    (DEFAULT, 'Camisa 2', 'https://res.cloudinary.com/drd90e66k/image/upload/v1726451060/carrito/qyess4sjgb2cwvoqjtgk.jpg', 'Remera de algodon lila', 350.00, 1, 'N/A', '{0,1,2,3,4}', NULL, NULL),
+    (DEFAULT, 'Camisa 3', 'https://res.cloudinary.com/drd90e66k/image/upload/v1726451060/carrito/gbdg1blspuvhrxppn0sj.jpg', 'Remera de algodon negra', 400.00, 1, 'N/A', '{0,1,2,3,4}', NULL, NULL);
+
+**Promociones**: 
+-- Inserción de datos en la tabla promociones
+INSERT INTO public.promociones(
+    id, fecha
+) VALUES
+    (DEFAULT, '2024-09-01'), -- Promoción 1: Fecha de inicio de la promoción
+    (DEFAULT, '2024-10-01'), -- Promoción 2: Fecha de inicio de la promoción
+    (DEFAULT, '2024-11-01'); -- Promoción 3: Fecha de inicio de la promoción
+
+
+**Clientes** No es necesario insertar clientes ya que se crean automáticamente al completar una venta, registrando sus datos y actualizando información de ser
+necesario 
