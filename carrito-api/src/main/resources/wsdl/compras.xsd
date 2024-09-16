@@ -1,0 +1,23 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://carrito.api.com/ws/compras"
+           targetNamespace="http://carrito.api.com/ws/compras"
+           elementFormDefault="qualified">
+
+    <xs:element name="getComprasRequest"/>
+
+    <xs:element name="getComprasResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="compras" type="tns:Compra" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Compra">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="description" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,62 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://carrito.api.com/ws/compras"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://carrito.api.com/ws/compras"
+             name="ComprasService">
+
+    <types>
+        <xsd:schema xmlns:tns="http://carrito.api.com/ws/compras"
+                    targetNamespace="http://carrito.api.com/ws/compras"
+                    elementFormDefault="qualified">
+            <xsd:element name="getComprasRequest"/>
+            <xsd:element name="getComprasResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="compras" type="tns:Compra" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:complexType name="Compra">
+                <!-- Define fields for Compra -->
+                <xsd:sequence>
+                    <!-- Example field -->
+                    <xsd:element name="id" type="xsd:int"/>
+                    <xsd:element name="description" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+
+    <message name="getComprasRequest"/>
+    <message name="getComprasResponse">
+        <part name="compras" element="tns:getComprasResponse"/>
+    </message>
+
+    <portType name="ComprasPortType">
+        <operation name="getCompras">
+            <input message="tns:getComprasRequest"/>
+            <output message="tns:getComprasResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="ComprasBinding" type="tns:ComprasPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="getCompras">
+            <soap:operation soapAction="getCompras"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="ComprasService">
+        <port name="ComprasPort" binding="tns:ComprasBinding">
+            <soap:address location="http://localhost:8080/ws/compras"/>
+        </port>
+    </service>
+</definitions>
