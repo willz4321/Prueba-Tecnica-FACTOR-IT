@@ -3,6 +3,7 @@ package com.carrito.api.carrito.models.services.CompraServiceImpl;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -80,6 +81,8 @@ public class ClienteServiceImpl implements IClienteService{
     
                     if (totalCompras.compareTo(new BigDecimal(10000)) > 0) {
                         clienteExistente.setTipo(TipoCliente.VIP);
+                        clienteExistente.setAntiguedad(calculateAntiguedad(clienteExistente.getFechaVip(), TipoCliente.VIP));
+                        clienteExistente.setFechaVip(new Date());
                         clienteExistente = clienteDao.save(clienteExistente);
                     }
                 } else {
@@ -90,6 +93,8 @@ public class ClienteServiceImpl implements IClienteService{
                     // Si no tiene compras recientes, despromociona a COMUN
                     if (!hasRecentPurchases) {
                         clienteExistente.setTipo(TipoCliente.COMUN);
+                        clienteExistente.setAntiguedad(calculateAntiguedad(clienteExistente.getFechaComun(), TipoCliente.COMUN));
+                        clienteExistente.setFechaVip(null);
                         clienteExistente =  clienteDao.save(clienteExistente);
                     }
                 }
@@ -97,10 +102,11 @@ public class ClienteServiceImpl implements IClienteService{
                 return clienteExistente;
             } else {
                 cliente.setTipo(TipoCliente.COMUN);
+                cliente.setAntiguedad(calculateAntiguedad(cliente.getFechaComun(), TipoCliente.COMUN));
                 return clienteDao.save(cliente);
             }
         } catch (Exception e) {
-            // Manejo de excepción general para el método findCliente
+       
             throw new RuntimeException("Error al encontrar o guardar Cliente", e);
         }
     }   
@@ -139,6 +145,7 @@ public class ClienteServiceImpl implements IClienteService{
                 // Si no realizó compras ni en el mes anterior ni en el mes actual, pasa a COMUN
                 if (!hasPurchasesInPreviousMonth && !hasPurchasesInCurrentMonth) {
                     clienteExistente.setTipo(TipoCliente.COMUN);
+                    clienteExistente.setAntiguedad("FUE VIP EL MES PASADO");
                     clienteDao.save(clienteExistente);
                 } 
                 // Si realizó compras en el mes actual y superan los $10,000, sigue siendo VIP
@@ -171,4 +178,28 @@ public class ClienteServiceImpl implements IClienteService{
         }
     }
      
+    private String calculateAntiguedad(Date fechaInicio, TipoCliente tipo) {
+
+    if (fechaInicio == null) {
+        return "0 MESES"; // Si no hay fecha registrada, el cliente es nuevo en este tipo
+    }
+
+    Calendar startCal = Calendar.getInstance();
+    startCal.setTime(fechaInicio);
+
+    Calendar nowCal = Calendar.getInstance();
+
+    int yearsDifference = nowCal.get(Calendar.YEAR) - startCal.get(Calendar.YEAR);
+    int monthsDifference = nowCal.get(Calendar.MONTH) - startCal.get(Calendar.MONTH);
+
+    // Si es el mismo mes y año, devolver 0 MESES
+    if (yearsDifference == 0 && monthsDifference == 0) {
+        return "0 MESES";
+    }
+
+    // Calcula la diferencia total en meses
+    int totalMonths = yearsDifference * 12 + monthsDifference;
+
+    return totalMonths + " MESES";
+ }
 }

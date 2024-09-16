@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.carrito.api.carrito.models.entity.compra.Cliente;
 import com.carrito.api.carrito.models.entity.compra.Compra;
 import com.carrito.api.carrito.models.entity.compra.Promociones;
 import com.carrito.api.carrito.models.entity.producto.Producto;
@@ -22,6 +23,8 @@ import com.carrito.api.carrito.models.services.interfaces.IPromocionService;
 
 
 import com.carrito.api.carrito.models.services.interfaces.IClienteService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -91,6 +94,11 @@ public class CompraRestController {
     }
 
     //METODOS DE CLIENTE
+    @GetMapping("/cliente")
+    public List<Cliente> indexC() {
+        return clienteService.findAll();
+    }
+    
     @GetMapping("/cliente/{dni}")
     public ResponseEntity<Object>  getClienteByID(@PathVariable Long dni) {
         try {

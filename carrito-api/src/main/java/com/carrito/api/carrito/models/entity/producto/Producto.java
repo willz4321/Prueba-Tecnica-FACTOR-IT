@@ -1,6 +1,7 @@
 package com.carrito.api.carrito.models.entity.producto;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 import com.carrito.api.carrito.models.entity.enums.Talle;
@@ -29,7 +30,7 @@ public class Producto{
     public Producto(){
 
     }
-    
+
     public Producto(Long id, Tipo tipo, String nombre, BigDecimal precio, String descripcion, List<Talle> talles, String imagen) {
         this.id = id;
         this.tipo = tipo;
@@ -50,10 +51,6 @@ public class Producto{
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public BigDecimal getPrecio() {

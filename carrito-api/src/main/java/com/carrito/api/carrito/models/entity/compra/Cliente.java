@@ -1,5 +1,6 @@
 package com.carrito.api.carrito.models.entity.compra;
 
+import java.util.Date;
 import java.util.List;
 
 import com.carrito.api.carrito.models.entity.enums.TipoCliente;
@@ -24,7 +25,9 @@ public class Cliente {
     private String apellido;
     private Long dni;
     private TipoCliente tipo;
-
+    private String antiguedad;
+    private Date fechaVip;
+    private Date fechaComun;
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.PERSIST, orphanRemoval = false)
     @JsonIgnore
     private List<Compra> compras;
@@ -75,5 +78,26 @@ public class Cliente {
     public void setTipo(TipoCliente tipo) {
         this.tipo = tipo;
     }
-    
+    public String getAntiguedad() {
+        return antiguedad;
+    }
+    public void setAntiguedad(String antiguedad) {
+        this.antiguedad = antiguedad;
+    }
+    public Date getFechaVip() {
+        return fechaVip;
+    }
+
+    public void setFechaVip(Date fechaVip) {
+        this.fechaVip = fechaVip;
+    }
+
+    public Date getFechaComun() {
+        return fechaComun;
+    }
+
+    public void setFechaComun(Date fechaComun) {
+        this.fechaComun = fechaComun;
+    }
+
 }

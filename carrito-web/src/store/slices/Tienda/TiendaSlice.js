@@ -16,6 +16,7 @@ export const TiendaSlice = createSlice({
       cliente: {} 
     },
     Compras: [],
+    clientes: [],
     tipoProducto: '',
     isActive : false,
   },
@@ -136,7 +137,9 @@ export const TiendaSlice = createSlice({
               state.clienteCompra.relog = null; 
             }
     },
-    
+    setClientsList: (state, {payload}) => {
+       state.clientes = payload
+    },
     
     resetPurchase: (state) => {
       state.clienteCompra = {
@@ -179,6 +182,7 @@ export const {
   resetPurchase,
   setProductList,
   setRelogUpdate,
+  setClientsList,
   setDetailsBuys,
   setActivecartTrue,
   setActivecartFalse,

@@ -25,6 +25,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import { useProductStore, usePurchaseStore } from "../../hooks";
 import moment from "moment";
+import { Client } from "../pages/Client";
 
 const WithNavbar = ({ children }) => (
   <>
@@ -39,18 +40,18 @@ WithNavbar.propTypes = {
 
 export const TiendaRoutes = () => {
   const {productos, starGetProducts} = useProductStore();
-  const {Compras, promociones, clienteCompra, starGetPurchase, starGetPromos, startSaveDiscount} = usePurchaseStore()
+  const {Compras, promociones, clienteCompra, clientes, starGetPurchase, starGetPromos, startSaveDiscount, starGetCLients} = usePurchaseStore()
   const [dni, setDni] = useState('')
   const [showPromo, setShowPromo] = useState('')
   useEffect(() => {
     if (productos.length == 0) {starGetProducts()}
     if (Compras.length == 0) {starGetPurchase()} 
     if (promociones.length == 0) {starGetPromos()} 
+    if (clientes.length ==0) {starGetCLients()}
   }, [])
   
    useEffect(() => {
     const fechaActual = moment().startOf('day');
-    console.log("llamada")
     if (promociones.length !== 0 && clienteCompra.descuento == 'COMUN') {
       const promocion = promociones.find(pr => {
         const fechaPromocion = moment(pr.fecha);
@@ -96,6 +97,7 @@ export const TiendaRoutes = () => {
         <Route path="producto/:id" element={<WithNavbar><ProductDetails /></WithNavbar>} />
 
         <Route path="listaCompra" element={<WithNavbar><CartList /></WithNavbar>} />
+        <Route path="clientes" element={<WithNavbar><Client /></WithNavbar>} />
 
         {/* Redirección para rutas no encontradas */}
         <Route path="/*" element={<Navigate to="/" />} />

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { compraApi, clienteApi, promocionesApi } from '../api';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeItemFromBuys, resetPurchase, saveDiscount, setActivecartFalse, setActivecartTrue, setBuysList, setClienteBuy, setDetailsBuys, setItemBuys, setPromoList, setRelogUpdate } from '../store';
+import { removeItemFromBuys, resetPurchase, saveDiscount, setActivecartFalse, setActivecartTrue, setBuysList, setClienteBuy, setClientsList, setDetailsBuys, setItemBuys, setPromoList, setRelogUpdate } from '../store';
 import { useToast } from './use-toast';
 import { ToastAction } from '../components';
 
 export const usePurchaseStore = () => {
-  const { Compras, clienteCompra, isActive, promociones } = useSelector(state => state.Tienda);  
+  const { Compras, clienteCompra, isActive, promociones, clientes } = useSelector(state => state.Tienda);  
   const [redirectToDetails, setRedirectToDetails] = useState(false);
   const { toast } = useToast()
   const dispatch = useDispatch();
@@ -20,7 +20,14 @@ export const usePurchaseStore = () => {
       console.error('Error al obtener Compras:', error.data);
     }
   };
-
+  const starGetCLients = async () => {
+     try {
+      const response = await clienteApi.get();
+      dispatch(setClientsList(response.data)); 
+     } catch (error) {
+      console.error('Error al obtener Clientes:', error.data);
+     }
+  }
   const starGetClient = async (dni) => {
       try {
         const response = await clienteApi.get(`/${dni}`)
@@ -187,6 +194,7 @@ export const usePurchaseStore = () => {
     starGetPromos,
     starGetClient,
     startPostOrder,
+    starGetCLients,
     eliminarCompra,
     StartRemoveItem,
     starGetPurchase,
@@ -199,6 +207,7 @@ export const usePurchaseStore = () => {
 
     //Atributos
     Compras,
+    clientes,
     isActive,
     promociones,
     clienteCompra,
