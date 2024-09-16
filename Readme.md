@@ -30,7 +30,7 @@ Se desarrolló con **Spring Boot 3** usando la versión 21 de **Java**, con base
 
 - **Endpoint:** Se utilizó **Spring MVC** para la API REST y se habilitó **Swagger** para probar la API RESTful.
 
-- **Base de Datos:** Se utiliza **Spring Data JPA** para el mapeo y el acceso a datos. En la carpeta **Dao** se crean las interfaces con **CrudRepository** para la implementación de operaciones CRUD. Posteriormente, en la carpeta **Service** se crean las clases de servicio para cada entidad, para realizar operaciones sobre los datos y coordinar entre diferentes componentes de la aplicación.
+- **Base de Datos:** Se utiliza **Spring Data JPA** para el mapeo y el acceso a datos. En la carpeta **Dao** se crean las interfaces con **CrudRepository** para la implementación de operaciones CRUD. Posteriormente, en la carpeta **Service** se crean las clases de servicio para cada entidad, para realizar operaciones sobre los datos y coordinar entre diferentes componentes de la aplicación. Debe crear una base de datos llamada carritoCompra y brindar los accesos en el archivo aplication.proparties
 
 - **SchedulingConfig:** En la carpeta **config** se implementó la clase **SchedulingConfig** para tareas programadas, en este caso para verificar si un cliente sigue siendo VIP o no y actualizar dichos datos.
 
